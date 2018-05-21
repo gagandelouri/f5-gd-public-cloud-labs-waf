@@ -1,0 +1,11 @@
+#!/bin/bash +x
+echo Deleting and restarting the web instances...
+sed -i -e 's/count = 1/ count = 0/g' main.tf
+terraform apply
+sed -i -e 's/count = 0/ count = 1/g' main.tf
+terraform apply
+echo Just one minute. Be patient...
+sleep 30s
+wafUrl=$(lab-info | grep "WAF ELB" -A 2 | tail -n2 | cut -c8-)
+echo curl -kI $wafUrl
+curl -kI $wafUrl

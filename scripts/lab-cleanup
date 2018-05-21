@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+import boto3
+import sys
+import os
+student_email = os.getenv('emailid')
+student_id = student_email.replace('@','')
+student_id = student_id.replace('.','')
+
+autoscaling = boto3.client('autoscaling')
+s3 = boto3.resource('s3')
+s3_client = boto3.client('s3')
+ec2 = boto3.resource('ec2')
+instances = []
+asg = ""
+for instance in autoscaling.describe_auto_scaling_instances()['AutoScalingInstances']:
+    if student_id in  instance['AutoScalingGroupName']:
+        instances.append( instance['InstanceId'])
+        asg = instance['AutoScalingGroupName']
+if instances:
+    print 'removing ProtectedFromScaleIn',instances
+    autoscaling.set_instance_protection(
+            InstanceIds = instances,
+            AutoScalingGroupName=asg,
+            ProtectedFromScaleIn=False
+            )
+buckets = s3_client.list_buckets()['Buckets']
+for bucket in buckets:
+    if student_id in bucket['Name'] and "-terraform-bucket" not in bucket['Name']:
+        print 'deleting',bucket['Name']
+        b = s3.Bucket(bucket['Name'])
+        b.objects.all().delete()
+        b.delete()
+
+key = ec2.KeyPair("MyKeyPair-%s" %(student_email))
+key.delete()
