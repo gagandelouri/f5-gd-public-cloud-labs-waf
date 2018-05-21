@@ -20,6 +20,14 @@ resource "aws_elb" "f5-autoscale-waf-elb" {
     instance_port      = "${var.server_port}"
     instance_protocol  = "http"
   }
+
+  ## added 8080 listener port - Gagan Delouri
+  listener {
+    lb_port            = 8080
+    lb_protocol        = "http"
+    instance_port      = "8080"
+    instance_protocol  = "http"
+  }
 }
 
 resource "aws_cloudformation_stack" "f5-autoscale-waf" {

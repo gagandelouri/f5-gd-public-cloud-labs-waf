@@ -172,10 +172,16 @@ resource "aws_security_group" "instance" {
   }
 
 #added port 443 in security group Gagan Delouri
-
   ingress {
     from_port   = 443
     to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -244,7 +250,7 @@ resource "aws_instance" "example-b" {
   count = 1
 
   #ami                    = "{var.web_server_ami}"
-  ami                         = "${lookup(var.443, var.aws_region)}"
+  ami                         = "${lookup(var.web_server_ami, var.aws_region)}"
   instance_type               = "t2.micro"
   subnet_id                   = "${aws_subnet.public-b.id}"
   vpc_security_group_ids      = ["${aws_security_group.instance.id}"]
@@ -339,6 +345,14 @@ resource "aws_elb" "example" {
     instance_protocol = "http"
   }
 
+  ## added 8080 listener port - Gagan Delouri
+    listener {
+      lb_port           = 8080
+      lb_protocol       = "http"
+      instance_port     = 8080
+      instance_protocol = "http"
+    }
+
   health_check {
     healthy_threshold   = 2
     unhealthy_threshold = 2
@@ -373,6 +387,13 @@ resource "aws_security_group" "elb" {
   ingress {
     from_port   = 443
     to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = "${var.restrictedSrcAddress}"
+  }
+
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = "${var.restrictedSrcAddress}"
   }
@@ -440,6 +461,13 @@ resource "aws_security_group" "f5_data" {
   ingress {
     from_port   = 443
     to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = "${var.restrictedSrcAddress}"
+  }
+
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = "${var.restrictedSrcAddress}"
   }
