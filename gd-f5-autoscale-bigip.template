@@ -716,8 +716,8 @@
             "group": "root"
                 },
 
-                "/config/cloud/ASMDemo_Policy_Hackazon_IPGeolocation-Block.zip": {
-         "source": "https://s3.amazonaws.com/gd-f5-public-cloud/ASMDemo_Policy_Hackazon_IPGeolocation-Block.zip",
+                "/config/cloud/DVWA_SQLinjection_XSS-Block.zip": {
+         "source": "https://s3.amazonaws.com/gd-f5-public-cloud/DVWA_SQLinjection_XSS-Block.zip",
          "mode": "000644",
          "owner": "root",
          "group": "root"
@@ -812,7 +812,7 @@
                       "    tmsh load asm policy file /config/cloud/asm-policy-linux-${policyLevel}.xml\n",
                       "    tmsh load asm policy file  /config/cloud/ASMDemo_Policy_AllCases_SQL_XML_IPGeolocation.xml \n",
                       "    tmsh load asm policy file /config/cloud/ASMDemo_Policy_Hackazon_IPGeolocation-Allow.xml\n",
-                      "    tmsh load asm policy file /config/cloud/ASMDemo_Policy_Hackazon_IPGeolocation-Block.xml\n",
+                      "    tmsh load asm policy file /config/cloud/DVWA_SQLinjection_XSS-Block.xml\n",
                       "    # modify asm policy names below (ex. /Common/linux-${policyLevel}) to match policy name in the xml file\n",
                       "    tmsh modify asm policy /Common/linux-${policyLevel} active\n",
                       "    ## tmsh create ltm policy app-ltm-policy strategy first-match legacy\n",
@@ -895,7 +895,7 @@
                       "tar xvfz /config/cloud/asm-policy-linux.tar.gz -C /config/cloud",
                       "unzip /config/cloud/ASMDemo_Policy_AllCases_SQL_XML_IPGeolocation.zip -d /config/cloud",
                       "unzip /config/cloud/ASMDemo_Policy_Hackazon_IPGeolocation-Allow.zip -d /config/cloud",
-                      "unzip /config/cloud/ASMDemo_Policy_Hackazon_IPGeolocation-Block.zip -d /config/cloud",
+                      "unzip /config/cloud/DVWA_SQLinjection_XSS-Block.zip -d /config/cloud",
                       "tar xvfz /config/cloud/f5-cloud-libs-aws.tar.gz -C /config/cloud/aws/node_modules/f5-cloud-libs/node_modules",
                       "echo cloud libs install complete",
                       "touch /config/cloud/cloudLibsReady"

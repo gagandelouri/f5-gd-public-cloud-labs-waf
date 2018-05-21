@@ -226,9 +226,12 @@ resource "aws_instance" "example-a" {
               ## added by Gagan Delouri for Dockeer instances for WAF Test
               #docker run -d -p 80:80 --net host -e F5DEMO_APP=website -e F5DEMO_NODENAME="Public Cloud Lab: AZ #1" --restart always --name f5demoapp chen23/f5-demo-app:latest
               #sudo docker run --restart=always -d -p 443:80 citizenstig/dvwa
-              docker run  --restart=always -d -p 443:80 mutzel/all-in-one-hackazon:postinstall supervisord -n
+              docker run  --restart=always -d -p 443:80 mutzel/c supervisord -n
               #Start DVWA with random mysql password:
-              docker run  --restart=always -d -p 80:8000 -it appsecco/dsvw
+              #docker run  --restart=always -d -p 80:8000 -it appsecco/dsvw
+              docker run  --restart=always -d -p 80:8000 -it gaganld/dsvw-gagan
+              #Port 8080 for DVWA
+              docker run --restart=always -d -p 8080:80 -p 3306:3306 -e MYSQL_PASS="Chang3ME" gaganld/dvwa-gagan
               EOF
 
   tags {
@@ -259,8 +262,10 @@ resource "aws_instance" "example-b" {
               #sudo docker run --restart=always -d -p 443:80 citizenstig/dvwa
               docker run  --restart=always -d -p 443:80 mutzel/all-in-one-hackazon:postinstall supervisord -n
               #Start DVWA with random mysql password:
-              docker run  --restart=always -d -p 80:8000 -it appsecco/dsvw
-
+              #docker run  --restart=always -d -p 80:8000 -it appsecco/dsvw
+              docker run  --restart=always -d -p 80:8000 -it gaganld/dsvw-gagan
+              #Port 8080 for DVWA
+              docker run --restart=always -d -p 8080:80 -p 3306:3306 -e MYSQL_PASS="Chang3ME" gaganld/dvwa-gagan
               EOF
 
   tags {
