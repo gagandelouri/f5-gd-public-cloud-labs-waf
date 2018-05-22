@@ -237,7 +237,8 @@ resource "aws_instance" "example-a" {
               #docker run  --restart=always -d -p 80:8000 -it appsecco/dsvw
               docker run  --restart=always -d -p 80:8000 -it gaganld/dsvw-gagan
               #Port 8080 for DVWA
-              docker run --restart=always -d -p 8080:8080 -p 3306:3306 -e MYSQL_PASS="Chang3ME" gaganld/dvwa-gagan
+              docker pull citizenstig/dvwa
+              sudo docker run --restart=always -d -p 8080:8081 -p 3306:3306 -e MYSQL_PASS="Chang3ME" citizenstig/dvwa
               EOF
 
   tags {
@@ -271,7 +272,9 @@ resource "aws_instance" "example-b" {
               #docker run  --restart=always -d -p 80:8000 -it appsecco/dsvw
               docker run  --restart=always -d -p 80:8000 -it gaganld/dsvw-gagan
               #Port 8080 for DVWA
-              docker run --restart=always -d -p 8080:8080 -p 3306:3306 -e MYSQL_PASS="Chang3ME" gaganld/dvwa-gagan
+              #docker run --restart=always -d -p 8080:8080 -p 3306:3306 -e MYSQL_PASS="Chang3ME" gaganld/dvwa-gagan
+              docker pull citizenstig/dvwa
+              sudo docker run --restart=always -d -p 8080:8081 -p 3306:3306 -e MYSQL_PASS="Chang3ME" citizenstig/dvwa
               EOF
 
   tags {

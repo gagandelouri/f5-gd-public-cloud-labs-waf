@@ -573,6 +573,7 @@
         "FromPort": "4353",
         "ToPort": "4353",
         "SourceSecurityGroupId": { "Ref": "bigipSecurityGroup" }
+      }
       },
 
 
