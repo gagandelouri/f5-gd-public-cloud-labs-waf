@@ -35,7 +35,7 @@ resource "aws_elb" "f5-autoscale-waf-elb" {
     unhealthy_threshold = 2
     timeout             = 3
     interval            = 30
-    target              = "HTTP:8443/"
+    target              = "HTTPS:8443/"
   }
 
 
