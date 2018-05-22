@@ -28,6 +28,17 @@ resource "aws_elb" "f5-autoscale-waf-elb" {
     instance_port      = "8080"
     instance_protocol  = "http"
   }
+
+  #added health check as ELB was not working
+  health_check {
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+    timeout             = 3
+    interval            = 30
+    target              = "HTTP:8443/"
+  }
+
+
 }
 
 resource "aws_cloudformation_stack" "f5-autoscale-waf" {
