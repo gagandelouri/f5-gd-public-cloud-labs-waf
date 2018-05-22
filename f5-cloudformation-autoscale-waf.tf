@@ -67,8 +67,9 @@ resource "aws_cloudformation_stack" "f5-autoscale-waf" {
     #AUTO SCALING CONFIGURATION
     scalingMinSize          = "1"
     scalingMaxSize          = "2"
-    scaleDownBytesThreshold = 10000
-    scaleUpBytesThreshold   = 35000
+    ##lowered the figures from 10000 to 1000 and 35000 to 3500
+    scaleDownBytesThreshold = 1000
+    scaleUpBytesThreshold   = 3500
     notificationEmail       = "${var.waf_emailid != "" ? var.waf_emailid : var.emailid}"
     #WAF VIRTUAL SERVICE CONFIGURATION
     virtualServicePort      = "${var.server_port}"
