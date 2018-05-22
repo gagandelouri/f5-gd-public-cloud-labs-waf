@@ -478,6 +478,14 @@
             "ToPort": "443",
             "CidrIp": "0.0.0.0/0"
           },
+
+          {
+            "IpProtocol": "tcp",
+            "FromPort": "8080",
+            "ToPort": "8080",
+            "CidrIp": "0.0.0.0/0"
+          },
+
           {
             "IpProtocol": "tcp",
             "FromPort": {
@@ -565,8 +573,9 @@
         "FromPort": "4353",
         "ToPort": "4353",
         "SourceSecurityGroupId": { "Ref": "bigipSecurityGroup" }
-      }
-    },
+      },
+
+
     "S3Bucket": {
       "Type": "AWS::S3::Bucket",
       "Properties": {
@@ -836,7 +845,7 @@
                           "        tmsh create sys application service ${deploymentName}-443_sd { template f5.service_discovery variables add { cloud__aws_use_role { value no } cloud__cloud_provider { value aws } cloud__aws_region { value ${region} } pool__interval { value 15 } pool__lb_method_choice { value least-connections-member } pool__member_conn_limit { value 0 } pool__pool_to_use { value /Common/${deploymentName}-443 } pool__member_port { value 443 } pool__public_private { value private } pool__tag_key { value ${applicationPoolTagKey} } pool__tag_value { value ${applicationPoolTagValue} } }}\n",
                               "    tmsh create ltm node ${deploymentName} fqdn { name ${appInternalDnsName} }\n",
                             "    tmsh create sys application service ${deploymentName}-443 { device-group autoscale-group template f5.http.v1.2.0rc7 tables add { pool__members { column-names { addr port connection_limit } rows {{ row { ${deploymentName}-443 443 0 }}}}} variables add { asm__use_asm { value app-ltm-policy } pool__addr { value 0.0.0.0 } pool__mask { value 0.0.0.0 } pool__port { value 443 } monitor__http_version { value tcp } }}\n",
-                            " tmsh create ltm pool ${deploymentName}-8080 { monitor http }\n",
+                            " tmsh create ltm pool ${deploymentName}-8080 { monitor tcp }\n",
                                 " tmsh create sys application service ${deploymentName}-8080 { device-group autoscale-group template f5.http.v1.2.0rc7 lists add { asm__security_logging { value { \"${local_asm_log_name}\" } } } tables add { pool__members { column-names { addr port connection_limit } rows {{ row { ${deploymentName}-8080 8080 0 }}}}} variables add { pool__pool_to_use { value /Common/${deploymentName}-8080 }  pool__addr { value 0.0.0.0 } pool__mask { value 0.0.0.0 } pool__port { value 8080 } monitor__http_version { value tcp } }}\n",
                               "        tmsh create sys application service ${deploymentName}-8080_sd { template f5.service_discovery variables add { cloud__aws_use_role { value no } cloud__cloud_provider { value aws } cloud__aws_region { value ${region} } pool__interval { value 15 } pool__lb_method_choice { value least-connections-member } pool__member_conn_limit { value 0 } pool__pool_to_use { value /Common/${deploymentName}-8080 } pool__member_port { value 8080 } pool__public_private { value private } pool__tag_key { value ${applicationPoolTagKey} } pool__tag_value { value ${applicationPoolTagValue} } }}\n",
                               "    tmsh create ltm node ${deploymentName} fqdn { name ${appInternalDnsName} }\n",
