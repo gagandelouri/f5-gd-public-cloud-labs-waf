@@ -229,6 +229,7 @@ resource "aws_instance" "example-a" {
               yum install -y docker
               yum install -y telnet
               yum install -y curl
+              yum install -y ab
               /sbin/chkconfig --add docker
               service docker start
               ## added by Gagan Delouri for Dockeer instances for WAF Test
@@ -266,6 +267,7 @@ resource "aws_instance" "example-b" {
               yum install -y curl
               yum install -y docker
               yum install -y telnet
+              yum install -y ab
               /sbin/chkconfig --add docker
               service docker start
               ## added by Gagan Delouri for Dockeer instances for WAF Test
