@@ -1,0 +1,24 @@
+if [ $? == 0 ]; then
+ echo 'Running the tests please be patient'
+
+ for  ((i=1;i<=50;i++))
+do
+
+#1 83 SQL injection
+curl --user admin:password --cookie-jar ./somefile http://$1:8080/vulnerabilities/xss_r/?name=My+credit+card+number+is+4111-1111-1111-1111# -k -v -L
+
+#1 83 block files
+curl --user admin:password --cookie-jar ./somefile  http://$1:8080/php.ini -k -v -L
+curl --user admin:password --cookie-jar ./somefile  http://$1:8080/README.md -k -v -L
+
+##9 websafe - Advanced WAF - App Layer Login Page encryption - Port 97
+curl --user admin:password --cookie-jar ./somefilecurl -k http://$1:8080/login.php -k -v -L
+# now blocked user is triedd - systemfraud
+curl --user systemfraud:password --cookie-jar ./somefilecurl -k http://$1:8080/login.php -k -v -L
+
+sleep 3
+done
+
+ else
+ echo 'Something not right, with the hostname provided'
+fi

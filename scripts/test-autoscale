@@ -1,0 +1,17 @@
+if [ $? == 0 ]; then
+ echo 'Running the tests please be patient'
+
+
+base64 /dev/urandom | head -c 3000 > payload
+base64 /dev/urandom | head -c 3000 > payload1
+base64 /dev/urandom | head -c 3000 > payload2
+base64 /dev/urandom | head -c 3000 > payload3
+
+ab -t 120 -c 2000 -c 5  -T 'multipart/form-data; boundary=1234567890' -p payload1 https://$1/product/view?id=1  &
+ab -t 120 -c 2000 -c 5  -T 'multipart/form-data; boundary=1234567890' -p payload2 https://$1/product/view?id=1 &
+ab -t 120 -c 2000 -c 5  -T 'multipart/form-data; boundary=1234567890' -p payload3 https://$1/product/view?id=1 &
+
+
+ else
+ echo 'Something not right, with the o'
+fi
