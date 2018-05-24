@@ -228,6 +228,7 @@ resource "aws_instance" "example-a" {
               yum update -y
               yum install -y docker
               yum install -y telnet
+              yum install -y curl
               /sbin/chkconfig --add docker
               service docker start
               ## added by Gagan Delouri for Dockeer instances for WAF Test
@@ -239,7 +240,7 @@ resource "aws_instance" "example-a" {
               docker run  --restart=always -d -p 80:8000 -it gaganld/dsvw-gagan
               #Port 8080 for DVWA
               docker pull citizenstig/dvwa
-              docker run --restart=always -d -p 8080:9091 citizenstig/dvwa
+              sudo docker run --restart=always -d -p 8080:80 -p 3306:3306 -e MYSQL_PASS="Chang3ME" gaganld/dvwa-gagan
               EOF
 
   tags {
@@ -262,6 +263,7 @@ resource "aws_instance" "example-b" {
   user_data = <<-EOF
               #!/bin/bash
               yum update -y
+              yum install -y curl
               yum install -y docker
               yum install -y telnet
               /sbin/chkconfig --add docker
@@ -275,8 +277,7 @@ resource "aws_instance" "example-b" {
               docker run  --restart=always -d -p 80:8000 -it gaganld/dsvw-gagan
               #Port 8080 for DVWA
               #docker run --restart=always -d -p 8080:8080 -p 3306:3306 -e MYSQL_PASS="Chang3ME" gaganld/dvwa-gagan
-              docker pull citizenstig/dvwa
-              docker run --restart=always -d -p 8080:9091 citizenstig/dvwa
+              sudo docker run --restart=always -d -p 8080:80 -p 3306:3306 -e MYSQL_PASS="Chang3ME" gaganld/dvwa-gagan
               EOF
 
   tags {
