@@ -278,8 +278,8 @@ resource "aws_instance" "example-b" {
               #docker run  --restart=always -d -p 80:8000 -it appsecco/dsvw
               docker run  --restart=always -d -p 80:8000 -it gaganld/dsvw-gagan
               #Port 8080 for DVWA
-              #docker run --restart=always -d -p 8080:8080 -p 3306:3306 -e MYSQL_PASS="Chang3ME" gaganld/dvwa-gagan
-              sudo docker run --restart=always -d -p 8080:80 -p 3306:3306 -e MYSQL_PASS="Chang3ME" gaganld/dvwa-gagan
+              # Intentionally disabled on node 2, until cluster issues are resolved
+              #sudo docker run --restart=always -d -p 8080:80 -p 3306:3306 -e MYSQL_PASS="Chang3ME" gaganld/dvwa-gagan
               EOF
 
   tags {
