@@ -1,4 +1,4 @@
-The document is located in the docs folder. For more details, please contact Gagan Delouri , G.Delouri@f5.com for Lab Guide. 
+The document is located in the docs folder. For more details, please contact Gagan Delouri , G.Delouri@f5.com. 
 
 Quick Summary of the lab:
 
