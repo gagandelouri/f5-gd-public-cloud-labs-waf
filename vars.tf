@@ -13,7 +13,9 @@ variable "web_server_ami" {
     "ap-southeast-1" = "ami-77af2014"
     "us-west-2"      = "ami-6df1e514"
     "ap-southeast-2"  = "ami-60a26a02"
-
+     "us-west-1" = "ami-46e1f226"
+     "us-west-2" = "ami-6b8cef13"
+     "us-east-2" = "ami-976152f2"
   }
 }
 
