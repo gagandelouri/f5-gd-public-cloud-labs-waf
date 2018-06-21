@@ -1,1 +1,1 @@
-Please contact Gagan Delouri , g.delouri@f5.com for Lab Guide.
+Please contact Gagan Delouri , for any further details. The lab guide is attached in PDF format.
